@@ -50,7 +50,7 @@ public class PlanefinderService {
                                 aircraftPosition.getType()))
                         .retrieve()
                         .bodyToMono(Aircraft.class)
-                        .subscribe(ac -> System.out.println(" <> Aircraft response: " + ac));
+                        .subscribe(ac -> System.out.println(" 🛩️ Aircraft response: " + ac));
                 posClient.post()
                         .bodyValue(new Position(aircraftPosition.getAdshex(),
                                 aircraftPosition.getSquawk(),
@@ -66,7 +66,7 @@ public class PlanefinderService {
                                 aircraftPosition.getBarometer()))
                         .retrieve()
                         .bodyToMono(Position.class)
-                        .subscribe(pos -> System.out.println(" <><> Position response: " + pos));
+                        .subscribe(pos -> System.out.println(" ⌖ Position response: " + pos));
             }
         } catch (IOException e) {
             System.out.println("\n>>> IO Exception: " + e.getLocalizedMessage() +
