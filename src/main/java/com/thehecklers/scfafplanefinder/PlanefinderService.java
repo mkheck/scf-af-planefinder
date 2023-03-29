@@ -3,6 +3,7 @@ package com.thehecklers.scfafplanefinder;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -21,9 +22,12 @@ public class PlanefinderService {
     private final WebClient posClient;
 
     @SneakyThrows
-    public PlanefinderService(WebClient.Builder builder) {
-        acClient = builder.baseUrl("http://localhost:7071/api/ac").build();
-        posClient = builder.baseUrl("http://localhost:7072/api/pos").build();
+    public PlanefinderService(WebClient.Builder builder,
+                              @Value("${aircraft.url:http://localhost:7071/api/ac}") String acDestUrl,
+                              @Value("${position.url:http://localhost:7072/api/pos}") String posDestUrl) {
+
+        acClient = builder.baseUrl(acDestUrl).build();
+        posClient = builder.baseUrl(posDestUrl).build();
 
         acURL = new URL("http://192.168.1.139/ajax/aircraft");
         om = new ObjectMapper();
