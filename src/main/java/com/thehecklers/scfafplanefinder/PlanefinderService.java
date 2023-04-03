@@ -23,13 +23,14 @@ public class PlanefinderService {
 
     @SneakyThrows
     public PlanefinderService(WebClient.Builder builder,
+                              @Value("${acpositionfeed.url:http://192.168.1.139/ajax/aircraft}") String acposFeedUrl,
                               @Value("${aircraft.url:http://localhost:7071/api/ac}") String acDestUrl,
                               @Value("${position.url:http://localhost:7072/api/pos}") String posDestUrl) {
 
         acClient = builder.baseUrl(acDestUrl).build();
         posClient = builder.baseUrl(posDestUrl).build();
 
-        acURL = new URL("http://192.168.1.139/ajax/aircraft");
+        acURL = new URL(acposFeedUrl);
         om = new ObjectMapper();
     }
 
